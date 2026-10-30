@@ -1,0 +1,35 @@
+name: CI
+
+# Lint and the CPU test suite on every push and pull request.
+# GPU tests carry the gpu marker and are run by hand.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      # The CPU index serves the same torch/torchvision versions as +cpu builds,
+      # which skips about 3 GB of CUDA wheels CI never uses.
+      - name: Install pinned packages
+        run: python -m pip install -r requirements-dev.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Lint
+        run: make lint
+      - name: Test
+        run: make test

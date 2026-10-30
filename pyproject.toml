@@ -1,0 +1,16 @@
+# Tool configuration only; this repo is not an installable package.
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "--strict-markers"
+markers = [
+    "gpu: needs a CUDA GPU; excluded from CI, run by hand",
+]

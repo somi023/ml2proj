@@ -1,0 +1,24 @@
+# Runs on every commit once `make setup` has installed the hook (once per clone).
+# Keep the ruff rev equal to the ruff pin in requirements-dev.txt so `make lint` and the hook agree.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.10
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files  # blocks a stray checkpoint or dataset (> 500 kB)
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: no-hardcoded-paths
+        name: no hard-coded home-directory paths
+        language: pygrep
+        entry: '(/Users/|/home/|/ilab/users/|/content/drive/)'
+        files: '^(src|scripts|configs|tests)/'

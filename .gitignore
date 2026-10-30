@@ -1,0 +1,30 @@
+# Never committed: datasets, raw predictions, checkpoints, logs (all regenerable)
+/data/
+/results/preds/
+/checkpoints/
+/logs/
+/.venv/
+*.npy
+# ...except the tiny frozen fixtures the golden tests read
+!tests/fixtures/**/*.npy
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Personal working log, kept local
+/notes.md
+
+# Lock file used while a run appends to results/runs.csv
+/results/*.lock

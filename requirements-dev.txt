@@ -1,0 +1,14 @@
+# Runtime pins plus the dev tools (lint, tests, git hook). Install with: make setup
+-r requirements.txt
+cfgv==3.5.0
+distlib==0.4.3
+identify==2.6.20
+iniconfig==2.3.1
+nodeenv==1.11.0
+platformdirs==4.12.4
+pluggy==1.6.0
+pre_commit==4.6.2
+pytest==9.1.1
+python-discovery==1.6.1
+ruff==0.16.10
+virtualenv==21.14.5
